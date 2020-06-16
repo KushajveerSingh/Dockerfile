@@ -84,7 +84,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux
     echo "conda activate fastai" >> ~/.bashrc                                                             && \
     conda create -n fastai python=3.8.2                                                                   && \
     conda install -n fastai -c conda-forge -y notebook=$notebook jupyter_contrib_nbextensions=$extensions && \
-    echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'"                                         && \
+    echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'" >> .bashrc                              && \
     conda install -n fastai -c pytorch -y pytorch=$pytorch torchvision=$torchvision cudatoolkit=$cuda     && \
     git clone --depth 1 https://github.com/fastai/nbdev                                                   && \
     /home/default/miniconda3/envs/fastai/bin/pip install -e nbdev                                         && \
