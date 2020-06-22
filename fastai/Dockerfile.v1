@@ -10,10 +10,7 @@ LABEL miniconda    = 4.8.3 \
       pip          = 20.1.1\
       cuda         = 10.2  \
       pytorch      = 1.5.1 \
-      torchvision  = 0.6.1 \
-      nbdev        = 
-      fastcore     = 
-      fastai2      = 
+      torchvision  = 0.6.1 
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8                                   \
     PATH="/home/default/miniconda3/bin:$PATH"                     \
@@ -74,17 +71,17 @@ EXPOSE 8888
 # `jupyter notebook --ip=0.0.0.0 --port=8888` is the command to run jupyter notebook, given you
 # specified port 8888 in docker run command. Add a shortcut to this command in .bashrc
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh                && \
-    bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b                                                         && \
-    rm Miniconda3-py37_4.8.3-Linux-x86_64.sh                                                              && \
-    eval "$(/home/default/miniconda3/bin/conda shell.bash hook)"                                          && \
-    conda init                                                                                            && \
-    echo ". /home/default/miniconda3/etc/profile.d/conda.sh" >> .bashrc                                   && \
-    echo "export PATH=\"/home/default/miniconda3/bin:\$PATH\"" >> .bashrc                                 && \
-    echo "conda activate fastai" >> ~/.bashrc                                                             && \
-    conda create -n fastai python=3.8.3 pip=20.1.1 notebook=6.0.3                                         && \
-    echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'" >> .bashrc                              && \
-    conda clean -n fastai --yes --all                           
+# RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh                && \
+#     bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b                                                         && \
+#     rm Miniconda3-py37_4.8.3-Linux-x86_64.sh                                                              && \
+#     eval "$(/home/default/miniconda3/bin/conda shell.bash hook)"                                          && \
+#     conda init                                                                                            && \
+#     echo ". /home/default/miniconda3/etc/profile.d/conda.sh" >> .bashrc                                   && \
+#     echo "export PATH=\"/home/default/miniconda3/bin:\$PATH\"" >> .bashrc                                 && \
+#     echo "conda activate fastai" >> ~/.bashrc                                                             && \
+#     conda create -n fastai python=3.8.3 pip=20.1.1 notebook=6.0.3                                         && \
+#     echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'" >> .bashrc                              && \
+#     conda clean -afy                         
 
 
 # Scipt to update_fastai packages and list all versions of default packages
