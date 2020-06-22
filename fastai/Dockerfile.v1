@@ -2,18 +2,17 @@ FROM ubuntu:20.04
 
 LABEL author  = "Kushajveer Singh" \
       email   = "kushajreal@gmail.com" \
-      website = "https://kushajveersingh.github.io/"
+      website = "https://kushajveersingh.github.io/blog"
 
-LABEL miniconda    = 4.8.2 \
-      nbextensions = 0.5.1 \
+LABEL miniconda    = 4.8.3 \
       notebook     = 6.0.3 \
-      python       = 3.8.2 \
+      python       = 3.8.3 \
       cuda         = 10.2  \
-      pytorch      = 1.5.0 \
-      torchvision  = 0.6.0 \
-      nbdev        = master (till commit 705) \
-      fastcore     = master (till commit 181) \
-      fastai2      = master (till commit 933)
+      pytorch      = 1.5.1 \
+      torchvision  = 0.6.1 \
+      nbdev        = 
+      fastcore     = 
+      fastai2      = 
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8                                   \
     PATH="/home/default/miniconda3/bin:$PATH"                     \
@@ -74,15 +73,15 @@ EXPOSE 8888
 # `jupyter notebook --ip=0.0.0.0 --port=8888` is the command to run jupyter notebook, given you
 # specified port 8888 in docker run command. Add a shortcut to this command in .bashrc
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh                && \
-    bash Miniconda3-py37_4.8.2-Linux-x86_64.sh -b                                                         && \
-    rm Miniconda3-py37_4.8.2-Linux-x86_64.sh                                                              && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh                && \
+    bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b                                                         && \
+    rm Miniconda3-py37_4.8.3-Linux-x86_64.sh                                                              && \
     eval "$(/home/default/miniconda3/bin/conda shell.bash hook)"                                          && \
     conda init                                                                                            && \
     echo ". /home/default/miniconda3/etc/profile.d/conda.sh" >> .bashrc                                   && \
     echo "export PATH=\"/home/default/miniconda3/bin:\$PATH\"" >> .bashrc                                 && \
     echo "conda activate fastai" >> ~/.bashrc                                                             && \
-    conda create -n fastai python=3.8.2                                                                   && \
+    conda create -n fastai python=3.8.3                                                                   && \
     conda install -n fastai -c conda-forge -y notebook=$notebook jupyter_contrib_nbextensions=$extensions && \
     echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'" >> .bashrc                              && \
     conda install -n fastai -c pytorch -y pytorch=$pytorch torchvision=$torchvision cudatoolkit=$cuda     && \
