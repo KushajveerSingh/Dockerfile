@@ -7,6 +7,7 @@ LABEL author  = "Kushajveer Singh" \
 LABEL miniconda    = 4.8.3 \
       notebook     = 6.0.3 \
       python       = 3.8.3 \
+      pip          = 20.1.1\
       cuda         = 10.2  \
       pytorch      = 1.5.1 \
       torchvision  = 0.6.1 \
@@ -81,23 +82,14 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux
     echo ". /home/default/miniconda3/etc/profile.d/conda.sh" >> .bashrc                                   && \
     echo "export PATH=\"/home/default/miniconda3/bin:\$PATH\"" >> .bashrc                                 && \
     echo "conda activate fastai" >> ~/.bashrc                                                             && \
-    conda create -n fastai python=3.8.3                                                                   && \
-    conda install -n fastai -c conda-forge -y notebook=$notebook jupyter_contrib_nbextensions=$extensions && \
+    conda create -n fastai python=3.8.3 pip=20.1.1 notebook=6.0.3                                         && \
     echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'" >> .bashrc                              && \
-    conda install -n fastai -c pytorch -y pytorch=$pytorch torchvision=$torchvision cudatoolkit=$cuda     && \
-    git clone --depth 1 https://github.com/fastai/nbdev                                                   && \
-    /home/default/miniconda3/envs/fastai/bin/pip install -e nbdev                                         && \
-    git clone --depth 1 https://github.com/fastai/fastcore                                                && \
-    cd fastcore                                                                                           && \
-    /home/default/miniconda3/envs/fastai/bin/pip install -e ".[dev]"                                      && \
-    cd ..                                                                                                 && \
-    git clone --depth 1 https://github.com/fastai/fastai2                                                 && \
-    cd fastai2                                                                                            && \
-    /home/default/miniconda3/envs/fastai/bin/pip install -e ".[dev]"                                      && \
-    cd ..                                                                                                 && \
-    echo "alias update_fastai='~/update_fastai.sh'" >> .bashrc
+    conda clean -n fastai --yes --all                           
 
 
 # Scipt to update_fastai packages and list all versions of default packages
-COPY --chown=default:sudo update_fastai.sh /home/default
-COPY --chown=default:sudo list_versions.py /home/default
+# COPY --chown=default:sudo update_fastai.sh /home/default
+# COPY --chown=default:sudo list_versions.py /home/default
+
+# conda install -n fastai -c pytorch -y pytorch=$pytorch torchvision=$torchvision cudatoolkit=$cuda     && \
+# pip install nbdev fastcore fastai2
