@@ -4,13 +4,16 @@ LABEL author  = "Kushajveer Singh" \
       email   = "kushajreal@gmail.com" \
       website = "https://kushajveersingh.github.io/blog"
 
-LABEL miniconda    = 4.8.3 \
-      notebook     = 6.0.3 \
-      python       = 3.8.3 \
-      pip          = 20.1.1\
-      cuda         = 10.2  \
-      pytorch      = 1.5.1 \
-      torchvision  = 0.6.1 
+LABEL miniconda    = 4.8.3  \
+      notebook     = 6.0.3  \
+      python       = 3.8.3  \
+      pip          = 20.1.1 \
+      cuda         = 10.2   \
+      pytorch      = 1.5.1  \
+      torchvision  = 0.6.1  \
+      nbdev        = master \
+      fastcore     = master \
+      fastai2      = master
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8                                   \
     PATH="/home/default/miniconda3/bin:$PATH"                     \
@@ -71,22 +74,27 @@ EXPOSE 8888
 # `jupyter notebook --ip=0.0.0.0 --port=8888` is the command to run jupyter notebook, given you
 # specified port 8888 in docker run command. Add a shortcut to this command in .bashrc
 
-# RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh                && \
-#     bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b                                                         && \
-#     rm Miniconda3-py37_4.8.3-Linux-x86_64.sh                                                              && \
-#     eval "$(/home/default/miniconda3/bin/conda shell.bash hook)"                                          && \
-#     conda init                                                                                            && \
-#     echo ". /home/default/miniconda3/etc/profile.d/conda.sh" >> .bashrc                                   && \
-#     echo "export PATH=\"/home/default/miniconda3/bin:\$PATH\"" >> .bashrc                                 && \
-#     echo "conda activate fastai" >> ~/.bashrc                                                             && \
-#     conda create -n fastai python=3.8.3 pip=20.1.1 notebook=6.0.3                                         && \
-#     echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'" >> .bashrc                              && \
-#     conda clean -afy                         
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh && \
+    bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b                                          && \
+    rm Miniconda3-py37_4.8.3-Linux-x86_64.sh                                               && \
+    eval "$(/home/default/miniconda3/bin/conda shell.bash hook)"                           && \
+    conda init                                                                             && \
+    echo ". /home/default/miniconda3/etc/profile.d/conda.sh" >> .bashrc                    && \
+    echo "export PATH=\"/home/default/miniconda3/bin:\$PATH\"" >> .bashrc                  && \
+    conda install -y python=3.8.3                                                          && \
+    pip install notebook==6.0.3                                                            && \
+    echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8888'" >> .bashrc               && \
+    conda install pytorch torchvision cudatoolkit=10.2 -c pytorch                          && \
+    git clone https://github.com/fastai/nbdev                                              && \
+    pip install -e nbdev                                                                   && \
+    git clone https://github.com/fastai/fastcore                                           && \
+    cd fastcore                                                                            && \
+    pip install -e ".[dev]"                                                                && \
+    git clone https://github.com/fastai/fastai2                                            && \
+    cd fastai2                                                                             && \
+    pip install -e ".[dev]"                                                                && \
+    cd ..                                                                                  && \ 
+    conda clean -afy                         
 
-
-# Scipt to update_fastai packages and list all versions of default packages
-# COPY --chown=default:sudo update_fastai.sh /home/default
-# COPY --chown=default:sudo list_versions.py /home/default
-
-# conda install -n fastai -c pytorch -y pytorch=$pytorch torchvision=$torchvision cudatoolkit=$cuda     && \
-# pip install nbdev fastcore fastai2
+COPY --chown=default:sudo update_fastai.sh /home/default
+COPY --chown=default:sudo list_versions.py /home/default

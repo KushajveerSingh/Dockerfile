@@ -3,14 +3,15 @@ cd ~
 
 cd nbdev
 git pull origin master
-/home/default/miniconda3/envs/fastai/bin/pip install -e .
+pip install -e .
+cd ..
 
 cd fastcore
 git pull origin master
-/home/default/miniconda3/envs/fastai/bin/pip install -e ".[dev]"
+pip install -e ".[dev]"
 cd ..
 
 cd fastai2
 git pull origin master
-/home/default/miniconda3/envs/fastai/bin/pip install -e ".[dev]"
+pip install -e ".[dev]"
 cd current_dir
