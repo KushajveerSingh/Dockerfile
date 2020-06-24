@@ -18,26 +18,28 @@ USER default
 WORKDIR /home/default
 EXPOSE 8888
 
-COPY --chown=default:sudo update_fastai.sh /home/default/
+COPY --chown=default:sudo update_fastai.sh test_container.ipynb /home/default/
 
-# # Miniconda (update python to 3.8.3)
+# Miniconda (update python to 3.8.3)
+# Use port=8888 by default for jupyter
+# To run the container use this command
+# docker run -it --gpus device=0 -p 8888:8888 --name container_name fastai:latest
 ENV PATH="/home/default/miniconda3/bin:$PATH"
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh && \
-    bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b && \
-    rm Miniconda3-py37_4.8.3-Linux-x86_64.sh      && \
-    conda init                                    && \
-    conda install -y python=3.8.3                 && \
-    pip install notebook==6.0.3                   
-
-# Pytorch and fastai packages
-RUN conda install -y pytorch torchvision cudatoolkit=10.2 -c pytorch && \
-    git clone https://github.com/fastai/nbdev                     && \
-    pip install -e nbdev                                          && \
-    git clone https://github.com/fastai/fastcore                  && \
-    cd fastcore                                                   && \
-    pip install -e ".[dev]"                                       && \
-    cd ..                                                         && \
-    git clone https://github.com/fastai/fastai2                   && \
-    cd fastai2                                                    && \
-    pip install -e ".[dev]"                                       && \
+    bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b                            && \
+    rm Miniconda3-py37_4.8.3-Linux-x86_64.sh                                 && \
+    conda init                                                               && \
+    conda install -y python=3.8.3                                            && \
+    pip install notebook==6.0.3                                              && \
+    echo "alias note='jupyter notebook --ip=0.0.0.0 --port=8889'" >> .bashrc && \
+    conda install -y pytorch torchvision cudatoolkit=10.2 -c pytorch         && \
+    git clone https://github.com/fastai/nbdev                                && \
+    pip install -e nbdev                                                     && \
+    git clone https://github.com/fastai/fastcore                             && \
+    cd fastcore                                                              && \
+    pip install -e ".[dev]"                                                  && \
+    cd ..                                                                    && \
+    git clone https://github.com/fastai/fastai2                              && \
+    cd fastai2                                                               && \
+    pip install -e ".[dev]"                                                  && \
     conda clean -afy
