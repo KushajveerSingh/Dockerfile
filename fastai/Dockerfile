@@ -16,14 +16,14 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends c
 
 USER default
 WORKDIR /home/default
-EXPOSE 8888
+EXPOSE 8889
 
 COPY --chown=default:sudo update_fastai.sh test_container.ipynb /home/default/
 
 # Miniconda (update python to 3.8.3)
-# Use port=8888 by default for jupyter
+# Use port=8889 by default for jupyter
 # To run the container use this command
-# docker run -it --gpus device=0 -p 8888:8888 --name container_name fastai:latest
+# docker run -it --gpus device=0 -p 8889:8889 --name container_name fastai:latest
 ENV PATH="/home/default/miniconda3/bin:$PATH"
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh && \
     bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -b                            && \
