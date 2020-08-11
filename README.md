@@ -14,8 +14,8 @@ Dockerhub [link](https://hub.docker.com/repository/docker/kushaj/fastai/general)
    `/home/default` directory is setup, in the same way as a regular ubuntu install.
 
 3. **Miniconda** setup
-   * python=3.8.3
-   * jupyter notebook = 6.0.3
+   * python=3.8.5
+   * jupyter notebook = 6.1.1
    * pytorch = latest release
    * torchvision = latest release
    * nbdev = master commit
@@ -46,29 +46,29 @@ Code in **test_container.ipynb**.
 
 ```python
 python:
-    matplotlib: 3.2.2
-    notebook: 6.0.3
-    numpy: 1.18.5
-    pandas: 1.0.5
-    pillow: 7.1.2
-    pip: 20.1.1
-    python: 3.8.3
-    scikit-learn: 0.23.1
-    scipy: 1.5.0
-    spacy: 2.3.0
+    matplotlib: 3.3.0
+    notebook: 6.1.1
+    numpy: 1.19.1
+    pandas: 1.1.0
+    pillow: 7.2.0
+    pip: 20.0.2
+    python: 3.8.5
+    scikit-learn: 0.23.2
+    scipy: 1.5.2
+    spacy: 2.3.2
 pytorch:
-    pytorch: 1.5.1
-    torchvision: 0.6.0a0+35d732a
+    pytorch: 1.6.0
+    torchvision: 0.7.0
 fastai:
     fastai2:
-        Hash = bf455de9bc37c76f7f92b3c43227ef9d4779b614
-        Time = 2020-06-17 20:23:42 -0400
+	Hash = 7c56bcab0f1769349d05ea83d52f14c378b701dd
+	Time = 2020-08-10 15:07:38 -0700
     fastcore:
-        Hash = 4a2d5ea702d0dc4a6c34c4acefafd9b494d9e222
-        Time = 2020-05-20 05:51:34 -0700
+	Hash = de3e7d0dae3fb861dc4a09abe4556f80f1ce7662
+	Time = 2020-08-10 15:10:00 -0700
     nbdev:
-        Hash = 465597eedfb52ad5cd7cd6c378b8da6c851b4796
-        Time = 2020-06-22 12:47:11 -0400
+	Hash = 5cab00462c6e9044c6665811dfac1ba027abcdcb
+	Time = 2020-08-11 10:59:13 -0700
 ```
 
 ## PyTorch+GPU example

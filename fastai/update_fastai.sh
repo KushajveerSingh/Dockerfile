@@ -1,17 +1,20 @@
 current_dir=pwd
 cd ~
 
-cd nbdev
-git pull origin master
-pip install -e .
-cd ..
-
+git clone --depth=1 https://github.com/fastai/fastcore
 cd fastcore
-git pull origin master
-pip install -e ".[dev]"
+pip install .
 cd ..
 
+git clone --depth=1 https://github.com/fastai/nbdev
+cd nbdev
+pip install .
+cd ..
+
+git clone --depth=1 https://github.com/fastai/fastai2
 cd fastai2
-git pull origin master
-pip install -e ".[dev]"
+pip install .
+cd ..
+
+rm -rf fastcore nbdev fastai2
 cd current_dir
