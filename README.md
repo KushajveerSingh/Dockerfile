@@ -3,12 +3,26 @@ Collection of all my Dockerfile's. The base Dockerfile builds Ubuntu, Miniconda,
 
 Check out my blog post [Complete tutorial on building images using Docker](https://kushajveersingh.github.io/blog/docker) that covers everything you need to know to write Dockerfile and run containers using Docker. The base image [ubuntu_conda_pytorch](ubuntu_conda_pytorch/Dockerfile) is used as an example in the above post and it contains the details of every command used in the above Dockerfile.
 
+## Table of Contents
+- [ubuntu_conda_pytorch](#ubuntucondapytorch)
+    - [Build from source Dockerfile](#build-from-source-dockerfile)
+    - [Pull from Dockerhub](#pull-from-dockerhub)
+    - [Running a container](#running-a-container)
+    - [(Usage) Become root](#usage-become-root)
+    - [(Usage) Nvidia GPU](#usage-nvidia-gpu)
+    - [(Usage) PyTorch example](#usage-pytorch-example)
+- [Customizing base image](#customizing-base-image)
+    - [PyTorch CPU only install](#pytorch-cpu-only-install)
+    - [fastai install](#fastai-install)
+- [License]
+
 ## ubuntu_conda_pytorch
 Features
 - Builds on top of Ubuntu
 - `sudo` and a `default` user
 - `Miniconda` setup
 - `PyTorch` and `torchvision` installed using conda
+- Extra utilities include `git`, `curl`, `sudo`
 
 ### Build from source Dockerfile
 To build the image you can use the following command
@@ -90,6 +104,23 @@ True
 >>> x = torch.tensor([1,2], device='cuda:0')
 >>> x
 tensor([1, 2], device='cuda:0')
+```
+
+## Customizing base image
+You can customize [ubuntu_conda_pytorch/Dockerfile](ubuntu_conda_pytorch/Dockerfile) as per your needs
+
+### PyTorch CPU only install
+You can modify [line 41](https://github.com/KushajveerSingh/Dockerfile/blob/dd09c14fa8476b0dea834a97c978ef7a1361c84f/ubuntu_conda_pytorch/Dockerfile#L41) of the Dockerfile to install PyTorch. You can head to the PyTorch [install page](https://pytorch.org/get-started/locally/) to grab the command to install PyTorch. To install PyTorch for CPU you can change the original command to 
+```
+> conda install pytorch torchvision cpuonly -c pytorch
+```
+
+### fastai install
+[ubuntu_conda_fastai/Dockerfile](ubuntu_conda_fastai/Dockerfile) contains the code to install fastai in the base repo. You can pull the image from [kushaj/fastai](https://hub.docker.com/repository/docker/kushaj/fastai).
+
+To run a container use the following command connecting to port `8888` of the container
+```
+> docker run -it --gpus all -p 8888:8888 --name temp kushaj/fastai:latest
 ```
 
 ## License
