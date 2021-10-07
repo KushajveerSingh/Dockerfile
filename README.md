@@ -14,7 +14,7 @@ Check out my blog post [Complete tutorial on building images using Docker](https
 - [Customizing base image](#customizing-base-image)
     - [PyTorch CPU only install](#pytorch-cpu-only-install)
     - [fastai install](#fastai-install)
-- [License]
+- [License](#license)
 
 ## ubuntu_conda_pytorch
 Features
